@@ -2,11 +2,11 @@ PROJ_PATH = $(shell pwd)
 SHELL := /bin/bash
 
 O ?= $(PROJ_PATH)/result
-DESIGN ?= jcs_jyd
+DESIGN ?= ysyx_23060336
+RTL_FILES ?= $(shell find $(NPC_HOME)/vsrc -name "*.sv")
 SDC_FILE ?= $(PROJ_PATH)/scripts/default.sdc
-RTL_FILES ?= $(shell find $(JCS_JYD_NPC_HOME)/vsrc -name "*.sv")
 export CLK_FREQ_MHZ ?= 500
-export CLK_PORT_NAME ?= clk
+export CLK_PORT_NAME ?= clock
 PDK = icsprout55
 
 RESULT_DIR = $(O)/$(DESIGN)-$(CLK_FREQ_MHZ)MHz
@@ -32,7 +32,7 @@ rpt:
 	@vim $(TIMING_RPT)
 
 area:
-	@awk '/top module/ {print}' $(RESULT_DIR)/synth_stat.txt
+	@awk '/Chip area for module/ {print}' $(RESULT_DIR)/synth_stat.txt
 
 clean:
 	-rm -rf result/
