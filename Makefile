@@ -2,9 +2,9 @@ PROJ_PATH = $(shell pwd)
 SHELL := /bin/bash
 
 O ?= $(PROJ_PATH)/result
-DESIGN ?= gcd
+DESIGN ?= jcs_jyd
 SDC_FILE ?= $(PROJ_PATH)/scripts/default.sdc
-RTL_FILES ?= $(shell find $(PROJ_PATH)/example -name "*.v")
+RTL_FILES ?= $(shell find $(JCS_JYD_NPC_HOME)/vsrc -name "*.sv")
 export CLK_FREQ_MHZ ?= 500
 export CLK_PORT_NAME ?= clk
 PDK = icsprout55
@@ -28,7 +28,13 @@ sta: $(TIMING_RPT)
 $(TIMING_RPT): $(SCRIPT_DIR)/sta.tcl $(SDC_FILE) $(NETLIST_SYN_V)
 	set -o pipefail && ./bin/iEDA -script $^ $(DESIGN) $(PDK) 2>&1 | tee $(RESULT_DIR)/sta.log
 
+rpt:
+	@vim $(TIMING_RPT)
+
+area:
+	@awk '/top module/ {print}' $(RESULT_DIR)/synth_stat.txt
+
 clean:
 	-rm -rf result/
 
-.PHONY: init syn sta clean
+.PHONY: init syn sta clean rpt area
