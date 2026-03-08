@@ -2,8 +2,8 @@ PROJ_PATH = $(shell pwd)
 SHELL := /bin/bash
 
 O ?= $(PROJ_PATH)/result
-DESIGN ?= ysyx_23060336
-RTL_FILES ?= $(shell find $(NPC_HOME)/vsrc -name "*.sv")
+DESIGN ?= jcs_jyd
+RTL_FILES ?= $(shell find $(JCS_JYD_NPC_HOME)/vsrc -name "*.sv")
 SDC_FILE ?= $(PROJ_PATH)/scripts/default.sdc
 export CLK_FREQ_MHZ ?= 500
 export CLK_PORT_NAME ?= clock
